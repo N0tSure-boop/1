@@ -39,8 +39,13 @@
     .intro-flag .flag-wave { position: absolute; top: 0; left: 0; width: 200%; height: 100%; background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.4) 50%, transparent 100%); animation: waveShine 2s linear infinite; transform: skewX(-20deg); }
     @keyframes waveShine { 0% { transform: translateX(-100%) skewX(-20deg); } 100% { transform: translateX(50%) skewX(-20deg); } }
 
+    /* ========== 固定角标（页面滚动时始终停留在视口两侧） ========== */
+    .corner-badges { position: fixed; top: max(14px, env(safe-area-inset-top)); left: max(14px, env(safe-area-inset-left)); right: max(14px, env(safe-area-inset-right)); z-index: 100000; display: flex; justify-content: space-between; align-items: flex-start; pointer-events: none; }
+    .corner-badge { width: 104px; height: 104px; padding: 4px; border: 3px solid rgba(255,215,0,0.9); border-radius: 50%; background: rgba(255,255,255,0.96); box-shadow: 0 6px 22px rgba(0,0,0,0.6), 0 0 22px rgba(255,215,0,0.35); object-fit: cover; }
+    .corner-badge[alt="团徽"] { border-color: rgba(255,70,70,0.95); box-shadow: 0 5px 18px rgba(0,0,0,0.55), 0 0 18px rgba(218,37,29,0.35); }
+
     /* ========== 左上角 3D 波浪五星红旗（最后出场） ========== */
-    .flag-wrapper { position: fixed; top: 15px; left: 20px; z-index: 9999; perspective: 800px; opacity: 0; transition: opacity 1s ease-in; }
+    .flag-wrapper { position: fixed; top: 134px; left: max(20px, env(safe-area-inset-left)); z-index: 9999; perspective: 800px; opacity: 0; transition: opacity 1s ease-in; }
     .flag-wrapper.show { opacity: 1; }
     .flag-3d { width: 140px; height: 95px; position: relative; transform-style: preserve-3d; animation: flagWave 3s ease-in-out infinite alternate; transform-origin: left center; }
     .flag-body { width: 100%; height: 100%; background: linear-gradient(135deg, #DA251D 0%, #B71C1C 100%); border-radius: 4px; position: relative; box-shadow: 5px 5px 15px rgba(0,0,0,0.6), inset -5px 0 15px rgba(0,0,0,0.3); overflow: hidden; }
@@ -65,7 +70,7 @@
     @keyframes slideStar { 0% { transform: translate(0, 0) rotate(0deg) scale(1); opacity: 1; } 100% { transform: translate(var(--tx), var(--ty)) rotate(360deg) scale(0.2); opacity: 0; } }
 
     /* ========== 导航 ========== */
-    .top-nav { position:fixed; top:0; left:0; right:0; z-index:100; display:flex; justify-content:flex-end; align-items:center; padding:20px 60px; backdrop-filter:blur(15px); background:rgba(10,17,40,0.8); border-bottom:1px solid rgba(255,215,0,0.2); opacity: 0; transition: opacity 1s ease-in; }
+    .top-nav { position:fixed; top:0; left:0; right:0; z-index:100; display:flex; justify-content:flex-end; align-items:center; padding:20px 170px 20px 170px; backdrop-filter:blur(15px); background:rgba(10,17,40,0.8); border-bottom:1px solid rgba(255,215,0,0.2); opacity: 0; transition: opacity 1s ease-in; }
     .top-nav.show { opacity: 1; }
     .nav-links a { color:#FFF; margin-left:36px; cursor:pointer; font-size:1.05em; letter-spacing:2px; transition:all 0.3s; text-decoration: none; }
     .nav-links a:hover { color:#FFD700; text-shadow: 0 0 15px #FFD700; transform: scale(1.1); }
@@ -192,11 +197,17 @@
 
     /* ========== 响应式 ========== */
     @media (max-width:900px) {
-        .top-nav { padding:15px 20px; } .nav-links a { margin-left:15px; font-size:0.85em; } .hero-title { font-size:3.5em; letter-spacing:5px; } .title { font-size:2.2em; margin-bottom:40px; } .section { padding:80px 5%; } .profile-layout { grid-template-columns: 1fr; } .profile-cards { grid-template-columns: 1fr; } .flip-grid { grid-template-columns: 1fr; } .flip-card { min-height: 300px; } .honor-item { flex-direction: column; text-align: center; align-items: center; padding: 20px; } .honor-title-row { justify-content: center; } .honor-img-area { width: 100%; max-width: 360px; align-self: center; } .gallery-grid { columns: 2; column-gap: 15px; } .gallery-item { margin-bottom: 15px; } .score-display { flex-direction: column; } .ending-title { font-size:2.8em; letter-spacing:5px; } .ending-sub { font-size:1.2em; } .timeline { padding-left:40px; } .tl-item::before { left:-49px; } .flag-wrapper { top: 10px; left: 10px; } .flag-3d { width: 100px; height: 70px; }
+        .top-nav { padding:15px 108px 15px 108px; } .nav-links a { margin-left:15px; font-size:0.85em; } .hero-title { font-size:3.5em; letter-spacing:5px; } .title { font-size:2.2em; margin-bottom:40px; } .section { padding:80px 5%; } .profile-layout { grid-template-columns: 1fr; } .profile-cards { grid-template-columns: 1fr; } .flip-grid { grid-template-columns: 1fr; } .flip-card { min-height: 300px; } .honor-item { flex-direction: column; text-align: center; align-items: center; padding: 20px; } .honor-title-row { justify-content: center; } .honor-img-area { width: 100%; max-width: 360px; align-self: center; } .gallery-grid { columns: 2; column-gap: 15px; } .gallery-item { margin-bottom: 15px; } .score-display { flex-direction: column; } .ending-title { font-size:2.8em; letter-spacing:5px; } .ending-sub { font-size:1.2em; } .timeline { padding-left:40px; } .tl-item::before { left:-49px; } .corner-badge { width: 78px; height: 78px; border-width: 2px; } .flag-wrapper { top: 102px; left: max(10px, env(safe-area-inset-left)); } .flag-3d { width: 100px; height: 70px; }
     }
 </style>
 </head>
 <body>
+
+<!-- 固定在视口两侧的校徽与团徽 -->
+<div class="corner-badges" aria-label="学校与团徽">
+    <img class="corner-badge" src="校徽.jpg" alt="校徽">
+    <img class="corner-badge" src="团徽.jpg" alt="团徽">
+</div>
 
 <!-- 入场：主持人剪影 -->
 <div class="intro-host-container" id="intro-host-container">
